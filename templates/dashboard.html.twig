@@ -1,0 +1,129 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+{% include 'blocks/sidebar.html.twig' %}
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        {% include 'blocks/topbar.html.twig' %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            {% if notDismissedAlertsCount > 0 %}
+            <div class="alert alert-danger align-middle" role="alert">
+                <i class="fas fa-lg fa-exclamation-triangle"></i>&emsp;Vous avez des alertes. Consultez-les en cliquant sur la cloche ci-dessus.
+            </div>
+            {% endif %}
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Vos ruches enregistrées</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ hives|length }} ruches</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fab fa-hive fa-2x fa-rotate-90 text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Bonjour !
+                                    </div>
+                                    
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Bonjour, {{ useremail }} !</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Content Row -->
+            <div class="row d-flex justify-content-center">
+
+               <!-- Ruche -->
+               {% for hive in hives %}
+                <a href={{ path("hive", {hiveid: hive.Id})}} class="col-lg-3 col-md-6 mb-4 text-decoration-none stretched-link">
+                    <div class="card border-top-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-center text-s font-weight-bold text-success text-uppercase mb-1">Ruche {{ hive.name }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-thumbs-up fa-2x text-success"></i>
+                                </div>
+                            </div>
+                            <div class="row no-gutters h5 mb-0 pt-3 font-weight-bold text-gray-800">Date de création : </div>
+                            <div class="row no-gutters mb-0 px-3 text-gray-800">{{ hive.CreationDate|format_datetime('full', 'none', locale='fr') }}</div>
+                            <div class="row no-gutters h5 mb-0 pt-3 font-weight-bold text-gray-800">Dernier rapport : </div>
+                            {% set c = 0 %}
+                            {% for report in lastreports %}
+                            {% if report.HiveReported == hive %}
+                            {% set c = c + 1 %}
+                            <div class="row no-gutters mb-0 px-3 font-weight-bold text-success">{{ report.DateTime|format_datetime(locale='fr') }}</div>
+                            <div class="row no-gutters mb-0 px-3 text-gray-800"><span class="font-weight-bold">Masse : </span> {{ report.Weight|number_format(4, '.', ',') }} kg</div>
+                            <div class="row no-gutters mb-0 px-3 text-gray-800"><span class="font-weight-bold">T° ext : </span> {{ report.OutsideTemperature|number_format(1, '.', ',') }} °C</div>
+                            <div class="row no-gutters mb-0 px-3 text-gray-800"><span class="font-weight-bold">Hum% ext : </span> {{ report.OutsideHumidity|number_format(1, '.', ',') }} %</div>
+                            <div class="row no-gutters mb-0 px-3 text-gray-800"><span class="font-weight-bold">T° int : </span> {{ report.InsideTemperature|number_format(1, '.', ',') }} °C</div>
+                            <div class="row no-gutters mb-0 px-3 text-gray-800"><span class="font-weight-bold">Hum% int : </span> {{ report.InsideHumidity|number_format(1, '.', ',') }} %</div>
+                            <div class="row no-gutters mb-0 px-3 text-gray-800"><span class="font-weight-bold">Press. atm. : </span> {{ report.AtmosphericPressure|number_format(1, '.', ',') }} hpa</div>
+                            {% endif %}
+                            {% endfor %}
+                            {% if c == 0 %}
+                            <div class="row no-gutters mb-0 px-3 text-gray-800">Cette ruche n'a aucun rapport pour le moment.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+{% endblock %}

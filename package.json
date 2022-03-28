@@ -1,0 +1,17 @@
+{
+  "name": "abeillesafe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julian Lecocq--Mage, Baptiste Madelaine",
+  "license": "MIT"
+}

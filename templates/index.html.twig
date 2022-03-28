@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <title>AbeilleSafe</title>
+    
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.css" rel="stylesheet">
+        <link href="css/indextheme.css" rel="stylesheet">
+    
+    </head>
+    <body id="page-top">
+        <header class="masthead d-flex" id="header">
+            <div id="heading">
+                <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                    <source src="{{ asset('vid/bees.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+            <div class="container text-center my-auto">
+                <div class="row">
+                    <div class="col text-center">
+                        <img class="bg-primary p-3 m-3 rounded rotate-n-15" src="{{ asset('img/honeycomb.svg') }}" alt="AbeilleSafe" height="150px" width="150px" />
+                        <h1 class="d-md-none mb-1">
+                        Abeille Safe</h1>
+                        <h1 class="d-none d-md-block mb-1">AbeilleSafe</h1>
+                        <h3 class="mb-5">
+                            <em>Votre gestionnaire de ruches connectées</em>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <a class="btn btn-primary btn-block" href="{{ path("dashboard") }}"><em>Entrer</em></a>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <a class="btn btn-info btn-sm" href="{{ path("presentation") }}"><em>Qu'est-ce qu'AbeilleSafe ?</em></a>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="overlay"></div>
+        </header>
+
+
+        
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+{% include 'blocks/sidebar.html.twig' %}
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        {% include 'blocks/topbar.html.twig' %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div class="align-middle" role="alert">
+                {{ form_errors(form) }}
+            </div>
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">{% if update == true %}Mise à jour{% else %}Création{% endif %} de ruche</h1>
+            </div>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        {{ form_start(form) }}
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Nombre de hausses</th>
+                                        <th>URL API IOT</th>
+                                        <th>Validation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ form_widget(form.Name) }}</td>
+                                        <td>{{ form_widget(form.HausseCount) }}</td>
+                                        <td>{{ form_widget(form.ApiUrl) }}</td>
+                                        <td><input type="submit" class="btn btn-success" value="{% if update == true %}Éditer{% else %}Créer{% endif %}" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+{% endblock %}

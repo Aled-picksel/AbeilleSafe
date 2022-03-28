@@ -1,0 +1,266 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ruche {{ hive.Name }}{% endblock %}
+
+{% block body %}
+{% include 'blocks/sidebar.html.twig' %}
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        {% include 'blocks/topbar.html.twig' %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            {% if notDismissedAlertsCount > 0 %}
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle"></i> Vous avez des alertes. Consultez-les en cliquant sur la cloche ci-dessus.
+            </div>
+            {% endif %}
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Ruche {{ hive.Name }}</h1>
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+                {% if lastreport is not null %}
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Dernier relevé</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ lastreport.DateTime|format_datetime('short', 'short', locale='fr') }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Masse de la ruche</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ lastreport.Weight|number_format(4, '.', ',') }} kg</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-weight-hanging fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Température / humidité relative intérieures
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-6">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ lastreport.InsideTemperature|number_format(1, '.', ',') }} °C</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ lastreport.InsideHumidity|number_format(1, '.', ',') }} %</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-temperature-high fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Température / humidité relative extérieures
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-6">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ lastreport.OutsideTemperature|number_format(1, '.', ',') }} °C</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ lastreport.OutsideHumidity|number_format(1, '.', ',') }} %</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-temperature-low fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Content Row -->
+
+            <div class="row">
+
+                <!-- Area Chart -->
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Évolution de la masse de la ruche</h6>
+                            <div>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "all"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tout</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "2years"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">2 ans</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "year"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 an</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "6months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">6 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "3months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">3 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "month"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "week"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Semaine</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "day"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Jour</a>
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="weiChart" 
+                                    data-datetimes="{% for report in filteredreports %}{{ report.DateTime|format_datetime('short', 'short', locale='fr') }},{% endfor %}" 
+                                    data-weights="{% for report in filteredreports %}{{ report.Weight }},{% endfor %}"
+                                ></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Area Chart -->
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Évolution des conditions extérieures à la ruche</h6>
+                            <div>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "all"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tout</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "2years"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">2 ans</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "year"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 an</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "6months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">6 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "3months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">3 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "month"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "week"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Semaine</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "day"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Jour</a>
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="extChart" 
+                                    data-text="{% for report in filteredreports %}{{ report.OutsideTemperature }},{% endfor %}"
+                                    data-hext="{% for report in filteredreports %}{{ report.OutsideHumidity }},{% endfor %}"
+                                ></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Area Chart -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Conditions intérieures de la ruche</h6>
+                            <div>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "all"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tout</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "2years"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">2 ans</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "year"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 an</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "6months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">6 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "3months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">3 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "month"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "week"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Semaine</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "day"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Jour</a>
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="intChart" 
+                                    data-tint="{% for report in filteredreports %}{{ report.InsideTemperature }},{% endfor %}"
+                                    data-hint="{% for report in filteredreports %}{{ report.InsideHumidity }},{% endfor %}"
+                                ></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Area Chart -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Pression atmosphérique</h6>
+                            <div>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "all"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Tout</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "2years"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">2 ans</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "year"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 an</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "6months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">6 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "3months"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">3 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "month"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">1 mois</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "week"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Semaine</a>
+                                <a href="{{ path("hive", {hiveid: hive.Id, "charttime": "day"})}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Jour</a>
+                            </div>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="atmChart" 
+                                    data-patm="{% for report in filteredreports %}{{ report.AtmosphericPressure }},{% endfor %}"
+                                ></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
+            </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+{% endblock %}

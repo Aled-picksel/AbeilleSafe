@@ -1,0 +1,8 @@
+body {
+    background: url('../img/bg_honeycomb.jpg') no-repeat center center fixed;
+    background-color: #f19d00;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}

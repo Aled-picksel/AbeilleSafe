@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <title>AbeilleSafe</title>
+    
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    
+        <!-- Custom styles for this template-->
+        <link href="css/presentation.css" rel="stylesheet">
+        <link href="css/sb-admin-2.css" rel="stylesheet">
+        
+    
+    </head>
+    <body id="page-top">
+        <header class="container text-center bg-white mt-5" id="header">
+            <div class="row">
+                <a class="my-2 mx-auto" href="{{ path('index') }}">
+                    <h1 class="brand d-flex align-items-center m-4">
+                        <img class="bg-primary p-2 mx-4 rounded rotate-n-15" src="{{ asset('img/honeycomb.svg') }}" alt="AbeilleSafe" height="100px" width="100px" />
+                        <span class="text-primary">AbeilleSafe</span>
+                    </h1>
+                </a>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="container bg-white mb-5">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-body text-center">
+                            <h2 class="h3 card-title mb-0 text-primary">Votre service de surveillance à distance de vos ruches connectées</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow">
+                        <img src="{{ asset('img/gui-2457113_500.png')}}" class="card-img-top" alt="...">
+                        <div class="card-body text-center">
+                        <h5 class="card-title mb-2 text-info"><span class="text-primary">Surveillez</span> vos ruches à distance</h5>
+                        <div class="card-text text-black-50 text-justify">Observez en temps réel l'évolution 
+                            de la <span class="text-info">masse</span>,
+                            de la <span class="text-info">température</span> et de l'<span class="text-info">humidité</span> 
+                            à l'intérieur et à l'extérieur de vos ruches connectées grâce à la technologie de connexion sans-fil <span class="text-info">LoRaWAN</span>.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow">
+                        <img src="{{ asset('img/email-4539382_500.jpg')}}" class="card-img-top" alt="...">
+                        <div class="card-body text-center">
+                        <h5 class="card-title mb-2 text-info">Soyez <span class="text-primary">notifié·e</span> d'événements anormaux</h5>
+                        <div class="card-text text-black-50 text-justify">Lorsqu'un <span class="text-info">événement anormal</span> est détecté sur une de vos ruches (variation anormale de la masse, disparition),
+                            vous en serez notifié·e.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow">
+                        <img src="{{ asset('img/interface-3614766_500.png')}}" class="card-img-top" alt="...">
+                        <div class="card-body text-center">
+                        <h5 class="card-title mb-2 text-info">Visualisez l'<span class="text-primary">évolution</span> de vos ruches</h5>
+                        <div class="card-text text-black-50 text-justify">Visualisez aisément
+                            et de manière <span class="text-info">intéractive</span> l'<span class="text-info">évolution des relevés</span> de masse, température et humidité effectués sur vos ruches.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-body text-center">
+                        <h5 class="card-title mb-1 text-info">Pourquoi <span class="text-primary">AbeilleSafe</span> ?</h5>
+                        <div class="card-text text-black-50 text-justify"><span class="text-primary">AbeilleSafe</span> est né du besoin d'<span class="text-info">automatiser</span> certaines tâches récurrentes relatives
+                            aux ruches : <span class="text-info">surveillance et vérifications</span> simples notamment. Les ruches étant régulièrement déplacées à plusieurs kilomètres de distance, des frais
+                            de déplacement et du temps peuvent être <span class="text-info">économisés</span>, au lieu de se rendre aux ruches avec son véhicule personnel.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image milieu bas -->
+                <div class="col-md-2 mb-4">
+                    <div class="card border-0 shadow">
+                        <img src="{{ asset('img/bee-5618012_1280.jpg')}}" class="card-img-top" height="250px" alt="..." style="object-fit: cover;">
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-4">
+                    <div class="card border-0 shadow">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-1 text-info">Qui est derrière <span class="text-primary">AbeilleSafe</span> ?</h5>
+                            <div class="card-text text-black-50 text-justify"><span class="text-primary">AbeilleSafe</span> est le produit d'un 
+                            <span class="text-info">projet tutoré</span> de deuxième année de
+                            <span class="text-info">D.U.T Informatique Graphique</span>, de 
+                            l'<span class="text-info">I.U.T. du Puy-en-Velay</span> (<a href="https://iut.uca.fr/">site web</a>), commandité 
+                            par <span class="text-info font-weight-bold">M. Philippe BEIGNIER</span>, et sous la direction de 
+                            <span class="text-info font-weight-bold">Mme. Adélaïde ALBOUY-KISSI</span>.
+                            Ce projet fut mené à son terme par :
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 mx-auto"><span class="text-info font-weight-bold">Julian LECOCQ--MAGE</span> - <a href="https://julemje.info/">Site web</a> - <a href="https://www.linkedin.com/in/julian-lecocq-mage/">LinkedIn</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mx-auto"><span class="text-info font-weight-bold">Claire DÉLÉAGE</span> - <a href="http://dotto.fr/portfolio/index.html">Site web</a> - <a href="https://www.linkedin.com/in/claire-d%C3%A9l%C3%A9age/">LinkedIn</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mx-auto"><span class="text-info font-weight-bold">Baptiste MADELAINE</span> - <a href="https://www.linkedin.com/in/baptiste-madelaine/">LinkedIn</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-4 ">
+                    <div class="card border-0 shadow embed-responsive embed-responsive-16by9 col-xs-12 text-center">
+                        <video controls width="480">
+                            <source src="{{ asset('vid/pres.mp4')}}"
+                                    type="video/mp4">
+
+                            Sorry, your browser doesn't support embedded videos.
+                        </video>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container -->
+
+        
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
